@@ -8,20 +8,25 @@ A **Model Context Protocol (MCP)** server that integrates with the **Tracker Boo
     - `TRACKER_BOOT_API_KEY` (required): Your Tracker Boot API Key.
 
   Get your API key from the [Tracker Boot Settings](https://trackerboot.com/settings/api).
+  
 
 
 ## Available Tools
 The MCP server provides the following tools for interacting with the Tracker Boot API:
 
+Table | Header
+----|-----
+Amazon Web Services | AWS
+1 | 2
 
-| Tool                       | Description                          | Parameters | Returns                                                          |
-|----------------------------|--------------------------------------|------------|------------------------------------------------------------------|
-| `tb_get_story`             | Fetch story details                  | storyId    | Complete story details                                           |
-| `tb_get_story_tasks`       | Fetch tasks in a story               | storyId    | List of tasks (title, finished) in a story                       |
-| `tb_get_story_comments`    | Fetch comments in a story            | storyId    | List of comments (content) in a story                            |
-| `tb_get_current_iteration` | Fetch current iteration with stories | projectId  | Iteration data with list of stories including cycle time details |
+ Tool                       | Description                          | Parameters | Returns                                                          
+----------------------------|--------------------------------------|------------|------------------------------------------------------------------
+ `tb_get_story`             | Fetch story details                  | storyId    | Complete story details                                           
+ `tb_get_story_tasks`       | Fetch tasks in a story               | storyId    | List of tasks (title, finished) in a story                       
+ `tb_get_story_comments`    | Fetch comments in a story            | storyId    | List of comments (content) in a story                            
+ `tb_get_current_iteration` | Fetch current iteration with stories | projectId  | Iteration data with list of stories including cycle time details 
 
-<br>
+&nbsp;
 
 # Claude Applications
 
@@ -29,7 +34,7 @@ The MCP server provides the following tools for interacting with the Tracker Boo
 <hr>
 Prerequisites
 Claude Desktop installed (latest version)
-Tracker Boot API Token (https://trackerboot.com/settings/api)
+Tracker Boot API Key (https://trackerboot.com/settings/api)
 For local setup: Docker installed and running
 
 ### Configuration File Location
@@ -53,7 +58,7 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
         "public.ecr.aws/e0q3y4e2/mcp-server:latest"
       ],
       "env": {
-        "TRACKER_BOOT_API_KEY": "YOUR_TRACKER_BOOT_API_TOKEN"
+        "TRACKER_BOOT_API_KEY": "YOUR_TRACKER_BOOT_API_KEY"
       }
     }
   }
@@ -67,14 +72,14 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
 
 ### Prerequisites
 - Claude Code CLI installed
-- Tracker Boot API Token (https://trackerboot.com/settings/api)
+- Tracker Boot API Key (https://trackerboot.com/settings/api)
 - For local setup: Docker installed and running
 - Open Claude Code inside the directory for your project (recommended for best experience and clear scope of configuration)
 
 ### Local Server Setup (Docker)
 1. Run the following command in the Claude Code CLI:
 ```shell
-claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_TOKEN -- docker run -i --rm -e TRACKER_BOOT_API_KEY
+claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY -- docker run -i --rm -e TRACKER_BOOT_API_KEY
   public.ecr.aws/e0q3y4e2/mcp-server:latest
 ```
 2. Restart Claude Code
