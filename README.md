@@ -14,17 +14,12 @@ A **Model Context Protocol (MCP)** server that integrates with the **Tracker Boo
 ## Available Tools
 The MCP server provides the following tools for interacting with the Tracker Boot API:
 
-Table | Header
-----|-----
-Amazon Web Services | AWS
-1 | 2
-
- Tool                       | Description                          | Parameters | Returns                                                          
-----------------------------|--------------------------------------|------------|------------------------------------------------------------------
- `tb_get_story`             | Fetch story details                  | storyId    | Complete story details                                           
- `tb_get_story_tasks`       | Fetch tasks in a story               | storyId    | List of tasks (title, finished) in a story                       
- `tb_get_story_comments`    | Fetch comments in a story            | storyId    | List of comments (content) in a story                            
- `tb_get_current_iteration` | Fetch current iteration with stories | projectId  | Iteration data with list of stories including cycle time details 
+| Tool                       | Description                          | Parameters | Returns                                                          |
+|----------------------------|--------------------------------------|------------|------------------------------------------------------------------|
+| `tb_get_story`             | Fetch story details                  | storyId    | Complete story details                                           |
+| `tb_get_story_tasks`       | Fetch tasks in a story               | storyId    | List of tasks (title, finished) in a story                       |
+| `tb_get_story_comments`    | Fetch comments in a story            | storyId    | List of comments (content) in a story                            |
+| `tb_get_current_iteration` | Fetch current iteration with stories | projectId  | Iteration data with list of stories including cycle time details |
 
 &nbsp;
 
