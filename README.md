@@ -23,6 +23,8 @@ The MCP server provides the following tools for interacting with the Tracker Boo
 
 &nbsp;
 
+# Usage
+
 # Claude Applications
 
 ## Claude Desktop
