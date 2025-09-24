@@ -1,6 +1,6 @@
 # Tracker Boot MCP Server
 
-A **Model Context Protocol (MCP)** server that integrates with the **Tracker Boot**, enabling AI assistants to fetch stories and analytics for current iteration.
+A **Model Context Protocol (MCP)** server that integrates with **Tracker Boot**, enabling AI assistants to fetch stories and analytics for current iteration.
 
 ## Required Environment Variables
 
@@ -25,14 +25,17 @@ The MCP server provides the following tools for interacting with the Tracker Boo
 
 # Usage
 
-# Claude Applications
+- [Claude Desktop](#claude-desktop)
+- [Claude Code CLI](#claude-code-cli)
+- [Github Copilot Coding Agent](#github-copilot-coding-agent)
+- [Devin](#devin)
 
 ## Claude Desktop
-<hr>
-Prerequisites
-Claude Desktop installed (latest version)
-Tracker Boot API Key (https://trackerboot.com/settings/api)
-For local setup: Docker installed and running
+
+### Prerequisites
+- Claude Desktop installed (latest version)
+- Tracker Boot API Key (https://trackerboot.com/settings/api)
+- Docker installed and running
 
 ### Configuration File Location
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -51,7 +54,6 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
         "-i",
         "--rm",
         "-e", "TRACKER_BOOT_API_KEY",
-        "-e", "TRACKER_BOOT_BASE_URL",
         "public.ecr.aws/e0q3y4e2/mcp-server:latest"
       ],
       "env": {
@@ -64,13 +66,14 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
 
 ```
 
+<br/>
+
 ## Claude Code CLI
-<hr>
 
 ### Prerequisites
 - Claude Code CLI installed
 - Tracker Boot API Key (https://trackerboot.com/settings/api)
-- For local setup: Docker installed and running
+- Docker installed and running
 - Open Claude Code inside the directory for your project (recommended for best experience and clear scope of configuration)
 
 ### Local Server Setup (Docker)
@@ -84,8 +87,14 @@ claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY --
 
 <br>
 
-# Github Copilot Coding Agent
+## Github Copilot Coding Agent
+
+### Prerequisites
 - Ensure that Copilot Coding Agent is enabled for your repository
+- Tracker Boot API Key (https://trackerboot.com/settings/api)
+
+### Local Server Setup (Docker)
+
 - Add the following to Copilot's MCP Configuration in Repo Settings > Copilot > Coding Agent > MCP configuration
 ```json
 {
@@ -113,7 +122,8 @@ claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY --
 
 <br/>
 
-# Devin
+## Devin
+
 - Navigate to https://app.devin.ai/settings/mcp-marketplace
 - Click "Add Your Own"
 - Create an MCP config with the following settings:
