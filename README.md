@@ -1,48 +1,59 @@
 # Tracker Boot MCP Server
 
-A **Model Context Protocol (MCP)** server that integrates with **Tracker Boot**, enabling AI assistants to fetch stories and analytics for current iteration.
+A **Model Context Protocol (MCP)** server that integrates with the **Tracker Boot**, enabling AI assistants to fetch stories and analytics for current iteration.
 
-## Required Environment Variables
+## Prerequisites
 
 - Before running the MCP server, you need to set the following environment variables:
     - `TRACKER_BOOT_API_KEY` (required): Your Tracker Boot API Key.
 
   Get your API key from the [Tracker Boot Settings](https://trackerboot.com/settings/api).
-  
 
+
+- Pull the latest image from the public repository:
+  ```shell
+  $ docker pull public.ecr.aws/tracker-boot/mcp-server:latest
+  ```
 
 ## Available Tools
 The MCP server provides the following tools for interacting with the Tracker Boot API:
 
-| Tool                       | Description                          | Parameters | Returns                                                          |
-|----------------------------|--------------------------------------|------------|------------------------------------------------------------------|
-| `tb_get_story`             | Fetch story details                  | storyId    | Complete story details                                           |
-| `tb_get_story_tasks`       | Fetch tasks in a story               | storyId    | List of tasks (title, finished) in a story                       |
-| `tb_get_story_comments`    | Fetch comments in a story            | storyId    | List of comments (content) in a story                            |
-| `tb_get_current_iteration` | Fetch current iteration with stories | projectId  | Iteration data with list of stories including cycle time details |
+| Tool                          | Description                          | Parameters                                                              | Returns                                                          |
+|-------------------------------|--------------------------------------|-------------------------------------------------------------------------|------------------------------------------------------------------|
+| `tb_get_story`                | Fetch story details                  | storyId                                                                 | Complete story details                                           |
+| `tb_get_story_tasks`          | Fetch tasks in a story               | storyId                                                                 | List of tasks (title, finished) in a story                       |
+| `tb_get_story_comments`       | Fetch comments in a story            | storyId                                                                 | List of comments (content) in a story                            |
+| `tb_get_current_iteration`    | Fetch current iteration with stories | projectId                                                               | Iteration data with list of stories including cycle time details |
+| `tb_create_story`             | Create a new story                   | projectId,<br>title,<br>description (optional),<br>storyType (optional) | Details of the created story                                     |
+| `tb_update_story_title`       | Update the title of a story          | storyId,<br>title                                                       | Details of the updated story                                     |
+| `tb_update_story_description` | Update the description of a story    | storyId,<br>description                                                 | Details of the updated story                                     |
+| `tb_update_story_status`      | Update the status of a story         | storyId,<br>status                                                      | Details of the updated story                                     |
+| `tb_create_task`              | Creat a new task in a story          | storyId,<br>title                                                       | Details of the created task                                      |
+| `tb_update_task`              | Update a task in a story             | taskId,<br>storyId,<br>finished,<br>title (optional)                    | Details of the updated task                                      |
+| `tb_create_comment`           | Create a new comment in a story      | storyId,<br>content                                                     | Details of the created comment                                   |
+| `tb_get_projects`             | Get the list of projects             |                                                                         | List of projects that the user has access to                     |
 
-&nbsp;
+**NOTE**:
+If you don't see all the tools listed above, please ensure that you are using the latest docker image of the MCP server.
 
-# Usage
 
-- [Claude Desktop](#claude-desktop)
-- [Claude Code CLI](#claude-code-cli)
-- [Github Copilot Coding Agent](#github-copilot-coding-agent)
-- [Devin](#devin)
 
-## Claude Desktop
+# Installations
+## Claude Applications
 
-### Prerequisites
-- Claude Desktop installed (latest version)
-- Tracker Boot API Key (https://trackerboot.com/settings/api)
-- Docker installed and running
+### Claude Desktop
+<hr>
+Prerequisites
+Claude Desktop installed (latest version)
+Tracker Boot API Key (https://trackerboot.com/settings/api)
+For local setup: Docker installed and running
 
-### Configuration File Location
+#### Configuration File Location
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 - Linux: `~/.config/Claude/claude_desktop_config.json`
 
-### Local Server Setup (Docker)
+#### Local Server Setup (Docker)
 Add this codeblock to your `claude_desktop_config.json` and restart Claude Desktop:
 ```json
 {
@@ -54,7 +65,7 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
         "-i",
         "--rm",
         "-e", "TRACKER_BOOT_API_KEY",
-        "public.ecr.aws/e0q3y4e2/mcp-server:latest"
+        "public.ecr.aws/tracker-boot/mcp-server:latest"
       ],
       "env": {
         "TRACKER_BOOT_API_KEY": "YOUR_TRACKER_BOOT_API_KEY"
@@ -66,21 +77,19 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
 
 ```
 
-<br/>
+### Claude Code CLI
+<hr>
 
-## Claude Code CLI
-
-### Prerequisites
+#### Prerequisites
 - Claude Code CLI installed
 - Tracker Boot API Key (https://trackerboot.com/settings/api)
-- Docker installed and running
+- For local setup: Docker installed and running
 - Open Claude Code inside the directory for your project (recommended for best experience and clear scope of configuration)
 
-### Local Server Setup (Docker)
+#### Local Server Setup (Docker)
 1. Run the following command in the Claude Code CLI:
 ```shell
-claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY -- docker run -i --rm -e TRACKER_BOOT_API_KEY
-  public.ecr.aws/e0q3y4e2/mcp-server:latest
+claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY -- docker run -i --rm -e TRACKER_BOOT_API_KEY public.ecr.aws/tracker-boot/mcp-server:latest
 ```
 2. Restart Claude Code
 3. Run `claude mcp list` to see the Tracker Boot server is configured from the terminal
@@ -88,27 +97,20 @@ claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY --
 <br>
 
 ## Github Copilot Coding Agent
-
-### Prerequisites
 - Ensure that Copilot Coding Agent is enabled for your repository
-- Tracker Boot API Key (https://trackerboot.com/settings/api)
-
-### Local Server Setup (Docker)
-
 - Add the following to Copilot's MCP Configuration in Repo Settings > Copilot > Coding Agent > MCP configuration
 ```json
 {
   "mcpServers": {
     "tracker-boot-mcp-server": {
       "type": "local",
-      "tools": ["tb_get_story_tasks","tb_get_current_iteration","tb_get_story_comments","tb_get_story"],
+      "tools": ["tb_get_story","tb_get_current_iteration","tb_get_story_tasks","tb_create_comment","tb_get_story_comments","tb_create_task","tb_create_story","tb_update_task","tb_update_story_title","tb_update_story_description","tb_update_story_status","tb_get_projects"],
       "command": "docker",
       "args": [
         "run",
         "-i",
-        "-e",
-        "TRACKER_BOOT_API_KEY",
-        "public.ecr.aws/e0q3y4e2/mcp-server:latest"
+        "-e", "TRACKER_BOOT_API_KEY",
+        "public.ecr.aws/tracker-boot/mcp-server:latest"
       ],
       "env": {
         "TRACKER_BOOT_API_KEY": "COPILOT_MCP_TRACKER_BOOT_API_KEY"
@@ -123,7 +125,6 @@ claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY --
 <br/>
 
 ## Devin
-
 - Navigate to https://app.devin.ai/settings/mcp-marketplace
 - Click "Add Your Own"
 - Create an MCP config with the following settings:
@@ -141,7 +142,6 @@ claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY --
 |                   | run                                                                |
 |                   | -ie                                                                |
 |                   | TRACKER_BOOT_API_KEY=$API_TOKEN                                    |
-|                   | public.ecr.aws/e0q3y4e2/mcp-server:latest                          |
+|                   | public.ecr.aws/tracker-boot/mcp-server:latest                      |
 
 * Click `Save Changes`
-
