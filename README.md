@@ -29,9 +29,11 @@ The MCP server provides the following tools for interacting with the Tracker Boo
 | `tb_update_story_description` | Update the description of a story    | storyId,<br>description                                                 | Details of the updated story                                     |
 | `tb_update_story_status`      | Update the status of a story         | storyId,<br>status                                                      | Details of the updated story                                     |
 | `tb_create_task`              | Creat a new task in a story          | storyId,<br>title                                                       | Details of the created task                                      |
+| `tb_batch_create_tasks`       | Create multiple tasks in a story     | storyId, <br>titles                                                     | Details of the created tasks                                     |
 | `tb_update_task`              | Update a task in a story             | taskId,<br>storyId,<br>finished,<br>title (optional)                    | Details of the updated task                                      |
 | `tb_create_comment`           | Create a new comment in a story      | storyId,<br>content                                                     | Details of the created comment                                   |
 | `tb_get_projects`             | Get the list of projects             |                                                                         | List of projects that the user has access to                     |
+| `tb_search_stories`           | Search stories by keyword or labels  | projectId, <br>query (optional), <br>labels (optional)                  | List of stories matching the search criteria                     |
 
 **NOTE**:
 If you don't see all the tools listed above, please ensure that you are using the latest docker image of the MCP server.
@@ -104,7 +106,7 @@ claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY --
   "mcpServers": {
     "tracker-boot-mcp-server": {
       "type": "local",
-      "tools": ["tb_get_story","tb_get_current_iteration","tb_get_story_tasks","tb_create_comment","tb_get_story_comments","tb_create_task","tb_create_story","tb_update_task","tb_update_story_title","tb_update_story_description","tb_update_story_status","tb_get_projects"],
+      "tools": ["tb_get_story","tb_get_current_iteration","tb_get_story_tasks","tb_create_comment","tb_get_story_comments","tb_create_task","tb_create_story","tb_update_task","tb_update_story_title","tb_update_story_description","tb_update_story_status","tb_get_projects", "tb_batch_create_tasks", "tb_search_stories"],
       "command": "docker",
       "args": [
         "run",
