@@ -33,7 +33,12 @@ The MCP server provides the following tools for interacting with the Tracker Boo
 | `tb_update_task`              | Update a task in a story             | taskId,<br>storyId,<br>finished,<br>title (optional)                    | Details of the updated task                                      |
 | `tb_create_comment`           | Create a new comment in a story      | storyId,<br>content                                                     | Details of the created comment                                   |
 | `tb_get_projects`             | Get the list of projects             |                                                                         | List of projects that the user has access to                     |
-| `tb_search_stories`           | Search stories by keyword or labels  | projectId, <br>query (optional), <br>labels (optional)                  | List of stories matching the search criteria                     |
+| `tb_search_stories`           | Search stories by keyword or labels and status | projectId, <br>query (optional), <br>labels (optional) , <br> status (optional) | List of stories matching the search criteria                     |
+| `tb_update_story_estimate`    | Update estimate of a story                     | storyId, <br>estimate                                                           | Update the estimate of a story.                                  |
+| `tb_get_project_members`      | Get the list of project members                | projectId                                                                       | List the members of a project                                    |
+| `tb_update_story_owners`      | Assign/Remove owners from a story              | storyId, <br>addOwnerIds, <br>removeOwnerIds                                    | Add or Remove owners for a story                                 |
+| `tb_add_story_label`          | Add a label to a story                         | storyId, <br>label                                                              | Label Id, Name and Count                                         |
+| `tb_remove_story_label`       | Remove an existing label from a story          | storyId, <br>label                                                              | Label Id, Name and Count                                         |
 
 **NOTE**:
 If you don't see all the tools listed above, please ensure that you are using the latest docker image of the MCP server.
