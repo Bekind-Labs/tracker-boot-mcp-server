@@ -46,9 +46,12 @@ If you don't see all the tools listed above, please ensure that you are using th
 
 
 # Installations
+
 ## Claude Applications
 
-### Claude Desktop
+You need either one of the following:
+
+### a. Claude Desktop
 <hr>
 Prerequisites
 Claude Desktop installed (latest version)
@@ -61,7 +64,7 @@ For local setup: Docker installed and running
 - Linux: `~/.config/Claude/claude_desktop_config.json`
 
 #### Local Server Setup (Docker)
-Add this codeblock to your `claude_desktop_config.json` and restart Claude Desktop:
+Add this codeblock to your `claude_desktop_config.json` (**replace `<YOUR_TRACKER_BOOT_API_KEY>` with your own key**) and restart Claude Desktop:
 ```json
 {
   "mcpServers": {
@@ -75,7 +78,7 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
         "public.ecr.aws/tracker-boot/mcp-server:latest"
       ],
       "env": {
-        "TRACKER_BOOT_API_KEY": "YOUR_TRACKER_BOOT_API_KEY"
+        "TRACKER_BOOT_API_KEY": "<YOUR_TRACKER_BOOT_API_KEY>"
       }
     }
   }
@@ -84,7 +87,7 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
 
 ```
 
-### Claude Code CLI
+### b. Claude Code CLI
 <hr>
 
 #### Prerequisites
@@ -94,9 +97,9 @@ Add this codeblock to your `claude_desktop_config.json` and restart Claude Deskt
 - Open Claude Code inside the directory for your project (recommended for best experience and clear scope of configuration)
 
 #### Local Server Setup (Docker)
-1. Run the following command in the Claude Code CLI:
+1. Run the following command in the Claude Code CLI (**replace `<YOUR_TRACKER_BOOT_API_KEY>` with your own key**):
 ```shell
-claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=YOUR_TRACKER_BOOT_API_KEY -- docker run -i --rm -e TRACKER_BOOT_API_KEY public.ecr.aws/tracker-boot/mcp-server:latest
+claude mcp add tracker-boot -e TRACKER_BOOT_API_KEY=<YOUR_TRACKER_BOOT_API_KEY> -- docker run -i --rm -e TRACKER_BOOT_API_KEY public.ecr.aws/tracker-boot/mcp-server:latest
 ```
 2. Restart Claude Code
 3. Run `claude mcp list` to see the Tracker Boot server is configured from the terminal
